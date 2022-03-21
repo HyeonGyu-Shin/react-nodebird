@@ -1,24 +1,20 @@
 {
-    "parserOptions": {
-        "ecmaVersion": 2022,
-        "sourceType": "module",
-        "ecmaFeatures":{
-            "jsx": true
-        }
-    },
-    "env": {
-        "browser": true,
-        "node": true,
-        "es6":true
-    },
-    // 실제 적용되는 규칙???
-    "extends": [ 
-        "eslint:recommended",
-        "plugin:react/recommended"
-    ],
-    "plugins": [
-        "import",
-        "react-hooks"
-    ],
-    "rules": {}
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  // 실제 적용되는 규칙???
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "plugins": ["import", "react-hooks"],
+  "rules": {
+    "no-unused-vars": "off"
+  }
 }
