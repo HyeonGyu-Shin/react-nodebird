@@ -1,6 +1,21 @@
 import React, { useCallback, useState } from "react";
 import Link from "next/link";
+import styled from "styled-components";
 import { Button, Form, Input } from "antd";
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const DivWrapper = styled.div`
+  margin-bottom: 10px;
+`;
+
+const StyledForm = styled(Form)`
+  padding: 20px;
+`;
 
 const LoginForm = () => {
   const [id, setId] = useState("");
@@ -15,13 +30,13 @@ const LoginForm = () => {
   }, []);
 
   return (
-    <Form style={{ padding: "20px" }}>
-      <div style={{ marginBottom: "10px" }}>
+    <StyledForm>
+      <DivWrapper>
         <label htmlFor="user-id">아이디</label>
         <br />
         <Input name="user-id" value={id} onchange={onChangeId} required />
-      </div>
-      <div style={{ marginBottom: "10px" }}>
+      </DivWrapper>
+      <DivWrapper>
         <label htmlFor="user-password">비밀번호</label>
         <br />
         <Input
@@ -30,15 +45,8 @@ const LoginForm = () => {
           onchange={onChangePassword}
           required
         />
-      </div>
-      <div
-        style={{
-          marginBottom: "10px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+      </DivWrapper>
+      <ButtonWrapper>
         <Button type="primary" htmlType="submit" loading={false}>
           로그인
         </Button>
@@ -47,8 +55,8 @@ const LoginForm = () => {
             <Button>회원가입</Button>
           </a>
         </Link>
-      </div>
-    </Form>
+      </ButtonWrapper>
+    </StyledForm>
   );
 };
 
