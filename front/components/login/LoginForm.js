@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import PropTypes from "prop-types";
 import Link from "next/link";
 import styled from "styled-components";
 import { Button, Form, Input } from "antd";
@@ -17,32 +18,41 @@ const StyledForm = styled(Form)`
   padding: 20px;
 `;
 
-const LoginForm = () => {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+const LoginForm = ({ setIsLoggedIn }) => {
+  const [id, setId] = useState("rkrkdldkd");
+  const [password, setPassword] = useState("1234");
 
-  const onChangeId = useCallback((e) => {
-    setId(e.target.value);
-  }, []);
+  const onChangeId = useCallback(
+    (e) => {
+      setId(e.target.value);
+    },
+    [id]
+  );
 
   const onChangePassword = useCallback((e) => {
     setPassword(e.target.value);
   }, []);
 
+  const onSubmitForm = useCallback((e) => {
+    console.log(id, password);
+    setIsLoggedIn(true);
+  }, []);
+
   return (
-    <StyledForm>
+    <StyledForm onFinish={onSubmitForm}>
       <DivWrapper>
         <label htmlFor="user-id">아이디</label>
         <br />
-        <Input name="user-id" value={id} onchange={onChangeId} required />
+        <Input name="user-id" value={id} onChange={onChangeId} required />
       </DivWrapper>
       <DivWrapper>
         <label htmlFor="user-password">비밀번호</label>
         <br />
         <Input
+          type={"password"}
           name="user-password"
           value={password}
-          onchange={onChangePassword}
+          onChange={onChangePassword}
           required
         />
       </DivWrapper>
@@ -58,6 +68,10 @@ const LoginForm = () => {
       </ButtonWrapper>
     </StyledForm>
   );
+};
+
+LoginForm.propTypes = {
+  setIsLoggedIn: PropTypes.func,
 };
 
 export default LoginForm;
