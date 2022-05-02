@@ -4,7 +4,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { Button, Form, Input } from "antd";
 
-import { LogInAction } from "../../reducers";
+import { LogInAction } from "../../reducers/user";
 
 const ButtonWrapper = styled.div`
     display: flex;
