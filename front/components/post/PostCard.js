@@ -1,4 +1,4 @@
-import { Card, Popover, Button, Avatar } from 'antd';
+import { Card, Popover, Button, Avatar, List, Comment } from 'antd';
 import {
   RetweetOutlined,
   HeartOutlined,
@@ -7,14 +7,15 @@ import {
   HeartTwoTone,
 } from '@ant-design/icons';
 import React, { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Proptypes from 'prop-types';
 
 import PostImages from './PostImages';
-import { useSelector } from 'react-redux';
+import CommentForm from './comment/CommentForm';
 
 const PostCard = ({ post }) => {
   const [liked, setLiked] = useState(false);
-  const [commentFormOpend, setCommentFormOpend] = useState(false);
+  const [commentFormOpened, setCommentFormOpened] = useState(false);
 
   const id = useSelector((state) => state.user?.id);
 
@@ -23,7 +24,7 @@ const PostCard = ({ post }) => {
   }, []);
 
   const onToggleComment = useCallback(() => {
-    setCommentFormOpend((prev) => !prev);
+    setCommentFormOpened((prev) => !prev);
   }, []);
 
   return (
@@ -67,9 +68,26 @@ const PostCard = ({ post }) => {
           description={post.content}
         />
       </Card>
-      {commentFormOpend && <div>댓글 부분</div>}
+      {commentFormOpened && (
+        <div>
+          <CommentForm post={post} />
+          <List
+            header={`${post.Comments.length}개의 댓글`}
+            itemLayout="horizontal"
+            dataSource={post.Comments}
+            renderItem={(item) => (
+              <li>
+                <Comment
+                  author={item.User.nickname}
+                  avatar={<Avatar>{item.User.nickname[0]}</Avatar>}
+                  content={item.content}
+                />
+              </li>
+            )}
+          />
+        </div>
+      )}
 
-      {/* <CommentForm /> */}
       {/* <Comments /> */}
     </div>
   );
@@ -81,7 +99,7 @@ PostCard.propTypes = {
     User: Proptypes.object,
     content: Proptypes.string,
     createAt: Proptypes.object,
-    Comment: Proptypes.arrayOf(Proptypes.object),
+    Comments: Proptypes.arrayOf(Proptypes.object),
     Images: Proptypes.arrayOf(Proptypes.object),
   }).isRequired,
 };
